@@ -5,15 +5,26 @@
  */
 package machine;
 
+import bank.Service;
 import bank.SubBank;
 
 /**
  *
  * @author 62130500127
  */
-public class ATM {
+public class ATM extends Machine implements Service {
     public ATM
         (String machineId,SubBank subbank,int money,String location,MachineStatus status) {
-        super();
+       
+    }
+
+    @Override
+    public boolean withdraw(int money) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean transfer(int money, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
