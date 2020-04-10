@@ -11,7 +11,7 @@ import base.Employee;
  *
  * @author 62130500127
  */
-public class CounterService {
+public class CounterService implements Service{
     private Employee employee;
     private SubBank subBank;
 
@@ -38,6 +38,16 @@ public class CounterService {
     @Override
     public String toString() {
         return "CounterService{" + "employee=" + employee + ", subBank=" + subBank + '}';
+    }
+
+    @Override
+    public boolean withdraw(int money) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean transfer(int money, String id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
      
 }
