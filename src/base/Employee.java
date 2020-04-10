@@ -10,5 +10,20 @@ package base;
  * @author 62130500127
  */
 public class Employee {
+    private String employeeId;
+
+    public Employee(String employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getEmployeeId() {
+        return employeeId;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "employeeId=" + employeeId + '}';
+    }
+    
     
 }
