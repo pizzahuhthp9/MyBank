@@ -5,10 +5,15 @@
  */
 package machine;
 
+import bank.SubBank;
+
 /**
  *
  * @author 62130500127
  */
 public class ATM {
-    
+    public ATM
+        (String machineId,SubBank subbank,int money,String location,MachineStatus status) {
+        super();
+    }
 }

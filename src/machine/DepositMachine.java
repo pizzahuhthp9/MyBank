@@ -5,10 +5,21 @@
  */
 package machine;
 
+import bank.SubBank;
+
 /**
  *
  * @author 62130500127
  */
 public class DepositMachine {
+      public DepositMachine
+        (String machineId,SubBank subbank,int money,String location,MachineStatus status) {
+    }
+        
+        
+    public boolean deposit(int money){
+        return false;
+    }
+    
     
 }
