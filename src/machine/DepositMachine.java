@@ -19,7 +19,7 @@ public class DepositMachine extends Machine{
         
             
     public void deposit(int money,String id){
-        super.getSubBank().increaseMoney(money, id);
+        super.getSubBank().increaseAccountMoney(money, id);
         receiveMoney(money);
 } //น้องไม่แดงแต่น้องถูกไหมวะ
     
