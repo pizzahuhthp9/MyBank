@@ -5,7 +5,9 @@
  */
 package bank;
 
+import machine.ATM;
 import machine.Machine;
+import machine.MachineStatus;
 
 /**
  *
@@ -54,7 +56,7 @@ public class SubBank {
    public boolean addMoneyToATM(String id,int money){
        int index = searchMachine(id);
        if (index >= 0) {
-           machines[index].receiveMoney(money);     //กานจะเขียน
+           machines[index].receiveMoney(money);
            return true;
        }
        return false;
@@ -66,11 +68,14 @@ public class SubBank {
        bankAccounts = temp;
    }
    
-   public void createATM(String id){
+   public void createATM(String id, int money, String location){
        int index = searchMachine(id);
        if (index == -1){
            if (isMachineFull()) {
                expandBankAccountsSize();
+           }
+           if (money > this.vault) {
+               machines[machines.length] = new ATM(id, this, money, location, MachineStatus.AVAILABLE);
            }
            
        }
@@ -79,10 +84,10 @@ public class SubBank {
    public void transferbankAccountsMoney(int Money,String id,String address){
        
    }
-   public void increaseMoney(int money,String id){
+   public void increaseAccountMoney(int money,String id){
        
    }
-   public void decreaseMoney(int money,String id){
+   public void decreaseAccountMoney(int money,String id){
        
    }
 
