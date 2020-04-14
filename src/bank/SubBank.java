@@ -96,10 +96,10 @@ public class SubBank {
    public void increaseAccountMoney(int money,String id){
        int index = searchAccount(id);
        if (index >= 0) {
-           bankAccounts[index].
+           bankAccounts[index].receiveMoney(money);
        }
    }
-   public void decreaseAccountMoney(int money,String id){
+      public void decreaseAccountMoney(int money,String id){
        
    }
 
