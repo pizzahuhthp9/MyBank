@@ -13,8 +13,7 @@ import bank.SubBank;
  * @author 62130500127
  */
 public class ATM extends Machine implements Service {
-    public ATM
-        (String machineId,SubBank subbank,int money,String location,MachineStatus status) {
+    public ATM(String machineId,SubBank subbank,int money,String location,MachineStatus status) {
        
     }
 
