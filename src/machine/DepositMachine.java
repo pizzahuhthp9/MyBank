@@ -11,15 +11,16 @@ import bank.SubBank;
  *
  * @author 62130500127
  */
-public class DepositMachine {
+public class DepositMachine extends Machine{
       public DepositMachine
         (String machineId,SubBank subbank,int money,String location,MachineStatus status) {
+            
     }
         
-        
-    public boolean deposit(int money){
-        return false;
-    }
-    
+            
+    public void deposit(int money,String id){
+        super.getSubBank().increaseMoney(money, id);
+        receiveMoney(money);
+} //น้องไม่แดงแต่น้องถูกไหมวะ
     
 }
