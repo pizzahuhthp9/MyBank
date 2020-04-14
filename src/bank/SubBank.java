@@ -12,7 +12,7 @@ import machine.Machine;
  * @author 62130500127
  */
 public class SubBank {
-     private int vault;
+   private int vault;
    private String address;
    private Machine[] ATMs;
    private BankAccount[] bankAccounts;

@@ -25,6 +25,7 @@ import java.util.Objects;
 public class BankAccount {
     private Customer owner;
     private int money;
+    private String accountId;
 
     public BankAccount(Customer owner) {
         this.owner = owner;
@@ -38,6 +39,11 @@ public class BankAccount {
         return money;
     }
 
+    public String getAccountId() {
+        return accountId;
+    }
+    
+    
     @Override
     public String toString() {
         return "BankAccount{" + "owner=" + owner + ", Money=" + money + '}';
