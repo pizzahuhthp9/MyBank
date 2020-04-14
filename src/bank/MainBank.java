@@ -7,6 +7,7 @@ package bank;
 
 import base.Customer;
 import bank.BankAccount;
+import bank.SubBank;
 /**
  *
  * @author 62130500127
@@ -64,14 +65,41 @@ private int vault;
     }
     
     public void transfer(int money,String id1,String id2){//โอนเงินระหว่างbankaccount
-       
+       int x =  searchMachine(id1);
+       if(x != -1){
+           bankAccount[x].decreaseMoney(money);// ลดเงินในบัญชีที่ 1 ไปใส่ บัญชี/
+           int y =  searchMachine(id2);
+           if(y != -1){
+               bankAccount[y].receiveMoney(money);
+           }
+       }
+    }
+    public int searchSubBank(String ad){
+        for (int i = 0; i < subBanks.length; i++) {
+          if(subBanks[i].getAddress().equals(ad))
+              return i;
+        }
+    return -1;
     }
     
-    public void tranferVeult(int money){//subBank veult
-        
+    public void tranferVeult(int money,String ad1,String ad2){//subBank veult
+        int x =  searchSubBank(ad1);
+       if(x != -1){
+           subBanks[x].decreaseAccountMoney(money, ad1);// ลดเงินในบัญชีที่ 1 ไปใส่ บัญชี/
+           int y =  searchMachine(ad2);
+           if(y != -1){
+           subBanks[y].increaseAccountMoney(money, ad2);
+           }
+       }
     }
-    public void newSubBank(int money){// new object ยัดเข้าไปใยarray
-        
+    public void newSubBank(SubBank[] money){// new object ยัดเข้าไปใยarray
+        for (int i = 0; i < subBanks.length; i++) {
+            if(subBanks[i].isMachineFull()) {
+                subBanks[i].expandBankAccountsSize();
+            }
+            
+            
+        }
     }
     public void deleteSubBank(){
         
