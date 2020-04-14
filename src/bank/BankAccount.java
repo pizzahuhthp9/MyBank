@@ -16,6 +16,7 @@ package bank;
  */
 
 import base.Customer;
+import java.util.Objects;
 
 /**
  *
@@ -23,7 +24,7 @@ import base.Customer;
  */
 public class BankAccount {
     private Customer owner;
-    private int Money;
+    private int money;
 
     public BankAccount(Customer owner) {
         this.owner = owner;
@@ -34,18 +35,42 @@ public class BankAccount {
     }
 
     public int getMoney() {
-        return Money;
+        return money;
     }
 
     @Override
     public String toString() {
-        return "BankAccount{" + "owner=" + owner + ", Money=" + Money + '}';
+        return "BankAccount{" + "owner=" + owner + ", Money=" + money + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final BankAccount other = (BankAccount) obj;
+        if (this.money != other.money) {
+            return false;
+        }
+        if (!Objects.equals(this.owner, other.owner)) {
+            return false;
+        }
+        return true;
     }
     
-    public int compareTo(BankAccount b){
-        return 0;
-        
-    }
+    
     
 }
 
