@@ -18,6 +18,14 @@ public class ATM extends Machine implements Service {
        
     }
 
+    public String getMachineId(){
+        return super.getMachineId();
+    }
+        
+    public int getMoney(){
+        return super.getMoney();
+    } 
+        // ว้าว
     @Override
     public boolean withdraw(int money) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

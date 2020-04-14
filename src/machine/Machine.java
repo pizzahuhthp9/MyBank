@@ -6,6 +6,7 @@
 package machine;
 
 import bank.SubBank;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -18,11 +19,16 @@ public abstract class Machine {
     private int money;
     private String location;
     private MachineStatus status;
+    public int receiveMoney; //กานเพิ่มแล้วนะ
     
     public String getMachineId(){
         return machineId;
     }
 
+    public void receiveMoney(int money){
+        this.money+=money;
+    } //ทำถูกไหมน่ะ
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -51,10 +57,13 @@ public abstract class Machine {
         return money;
     }
 
+    public SubBank getSubBank() {
+        return subBank;
+    } // ทำตามคำสั่งทุกย่างยิ่งกว่าร้านข้าว
+
     @Override
     public String toString() {
         return "Machine{" + "machineId=" + machineId + ", subBank=" + subBank + ", money=" + money + ", status=" + status + '}';
     }
-    
     
 }
