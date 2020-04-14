@@ -43,6 +43,13 @@ public class BankAccount {
         return accountId;
     }
     
+    public void receiveMoney(int money){
+        this.money += money;
+    }
+    
+    public void decreaseMoney(int money){
+        this.money -= money;
+    }
     
     @Override
     public String toString() {

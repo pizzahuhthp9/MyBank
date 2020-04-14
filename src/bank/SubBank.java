@@ -39,6 +39,15 @@ public class SubBank {
        return -1;
    }
    
+   public int searchAccount(String id){
+       for (int i = 0; i < bankAccounts.length-1; i++) {
+           if (bankAccounts[i].getAccountId().equals(id)) {
+               return i;
+           }
+       }
+       return -1;
+   }
+   
    public boolean isBankAccountsFull(){
        if (bankAccounts.length == accountCount) {
            return true;
@@ -85,7 +94,10 @@ public class SubBank {
        
    }
    public void increaseAccountMoney(int money,String id){
-       
+       int index = searchAccount(id);
+       if (index >= 0) {
+           bankAccounts[index].
+       }
    }
    public void decreaseAccountMoney(int money,String id){
        
