@@ -7,35 +7,38 @@ package bank;
 
 import base.Customer;
 import bank.BankAccount;
+import bank.SubBank;
+
 /**
  *
  * @author 62130500127
  */
 public class MainBank {
-private int vault;
+
+    private int vault;
     private int totalMoney;
     private SubBank[] subBanks;
     private BankAccount[] bankAccount;
-    
-    public MainBank(int vault,int totalMoney){
+
+    public MainBank(int vault, int totalMoney) {
         vault = this.vault;
         totalMoney = this.totalMoney;
         subBanks = new SubBank[1];
         bankAccount = new BankAccount[1];
     }
-    
-    public void deposit(int amount){
-       totalMoney += amount; 
+
+    public void deposit(int amount) {
+        totalMoney += amount;
     }
-    
-    public void withdraw(int amount){
-        
-    if (amount > totalMoney){    
-      System.out.println("Insufficient Funds!!!");
-    } else {
-      totalMoney -= amount;
-    }
-     
+
+    public void withdraw(int amount) {
+
+        if (amount > totalMoney) {
+            System.out.println("Insufficient Funds!!!");
+        } else {
+            totalMoney -= amount;
+        }
+
     }
 
     public int getVault() {
@@ -51,38 +54,66 @@ private int vault;
     }
 
     public void setVault(int vault) {
-        
+
         this.vault = vault;
     }
-    
-    public int searchMachine(String id){
+
+    public int searchMachine(String id) {
         for (int i = 0; i < bankAccount.length; i++) {
-          if(bankAccount[i].getAccountId().equals(id))
-              return i;
+            if (bankAccount[i].getAccountId().equals(id)) {
+                return i;
+            }
         }
-    return -1;
+        return -1;
     }
-    
-    public void transfer(int money,String id1,String id2){//โอนเงินระหว่างbankaccount
-       
+
+    public void transfer(int money, String id1, String id2) {//โอนเงินระหว่างbankaccount
+        int x = searchMachine(id1);
+        if (x != -1) {
+            bankAccount[x].decreaseMoney(money);// ลดเงินในบัญชีที่ 1 ไปใส่ บัญชี/
+            int y = searchMachine(id2);
+            if (y != -1) {
+                bankAccount[y].receiveMoney(money);
+            }
+        }
     }
-    
-    public void tranferVeult(int money){//subBank veult
-        
+
+    public int searchSubBank(String ad) {
+        for (int i = 0; i < subBanks.length; i++) {
+            if (subBanks[i].getAddress().equals(ad)) {
+                return i;
+            }
+        }
+        return -1;
     }
-    public void newSubBank(int money){// new object ยัดเข้าไปใยarray
-        
+
+    public void tranferVeult(int money, String ad1, String ad2) {//subBank veult
+        int x = searchSubBank(ad1);
+        if (x != -1) {
+            subBanks[x].decreaseVault(money);// ลดเงินในบัญชีที่ 1 ไปใส่ บัญชี2     //กุแก้ให้นะจ๊ะ มึงไปลดทำแป๊ะอะไรบัญชี
+            int y = searchMachine(ad2);
+            if (y != -1) {
+                subBanks[y].increaseVault(money);   //กุแก้ให้นะจ๊ะ มึงไปเพิ่มทำแป๊ะอะไรบัญชี
+            }
+        }
     }
-    public void deleteSubBank(){
-        
+
+    public void newSubBank(SubBank[] money) {// new object ยัดเข้าไปใยarray   //ขยาย array ก่อนด้วย สร้าง method มาเองอย่าใช้ของ subBank isFull ด้วย สร้างเอง
+        for (int i = 0; i < subBanks.length; i++) {
+            if (subBanks[i].isMachineFull()) {
+                subBanks[i].expandBankAccountsSize();
+            }
+
+        }
     }
-    
+
+    public void deleteSubBank() {
+
+    }
+
     @Override
     public String toString() {
         return "MainBank{" + "vault=" + vault + ", totalMoney=" + totalMoney + ", subBanks=" + subBanks + '}';
-    }   
-    public static void main(String[] args) {
-        // TODO code application logic here
     }
-      
+
 }
