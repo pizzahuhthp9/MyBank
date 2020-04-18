@@ -5,6 +5,7 @@
  */
 package bank;
 
+import base.Customer;
 import machine.ATM;
 import machine.Machine;
 import machine.MachineStatus;
@@ -14,6 +15,7 @@ import machine.MachineStatus;
  * @author 62130500127
  */
 public class SubBank {
+   private MainBank mainBank;
    private int vault;
    private String address;
    private Machine[] machines;
@@ -26,7 +28,7 @@ public class SubBank {
        this.vault = vault;
        this.address = address;
        this.counterService = counterService;
-       machines = new Machine[1];
+       machines = new Machine[10];
        bankAccounts = new BankAccount[10];
    }
    
@@ -64,8 +66,9 @@ public class SubBank {
    
    public boolean addMoneyToATM(String id,int money){
        int index = searchMachine(id);
-       if (index >= 0) {
+       if (index >= 0 && money >= this.vault) {
            machines[index].receiveMoney(money);
+           vault -= money;
            return true;
        }
        return false;
@@ -77,32 +80,62 @@ public class SubBank {
        bankAccounts = temp;
    }
    
+   public void expandMachineSzie(){
+       Machine[] temp = new Machine[bankAccounts.length + 10];
+       System.arraycopy(machines, 0, temp, 0, machines.length);
+       machines = temp;
+   }
+   
    public void createATM(String id, int money, String location){
        int index = searchMachine(id);
        if (index == -1){
            if (isMachineFull()) {
-               expandBankAccountsSize();
+               expandMachineSzie();
            }
            if (money > this.vault) {
-               machines[machines.length] = new ATM(id, this, money, location, MachineStatus.AVAILABLE);
+               machines[machineCount++] = new ATM(id, this, money, location, MachineStatus.AVAILABLE);
            }
            
+       }
+   }
+   
+   public void createBankAccount(String id, int money, Customer customer){
+       int index = searchAccount(id);
+       if (index == -1) {
+           if (isBankAccountsFull()) {
+               expandBankAccountsSize();
+           }
+           bankAccounts[accountCount++] = new BankAccount(id, customer);
+           bankAccounts[accountCount].receiveMoney(money);
+           vault+=money;
        }
    }
    
    public void transferbankAccountsMoney(int Money,String id,String address){
        
    }
+   
    public void increaseAccountMoney(int money,String id){
        int index = searchAccount(id);
        if (index >= 0) {
            bankAccounts[index].receiveMoney(money);
        }
    }
+   
    public void decreaseAccountMoney(int money,String id){
        int index = searchAccount(id);
        if (index >= 0) {
            bankAccounts[index].decreaseMoney(money);
+       }
+   }
+   
+   public void increaseVault(int money){
+       this.vault += money;
+   }
+   
+   public void decreaseVault(int money){
+       if (this.vault >= money) {
+           this.vault -= money;
        }
    }
 

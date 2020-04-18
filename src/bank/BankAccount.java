@@ -27,7 +27,8 @@ public class BankAccount {
     private int money;
     private String accountId;
 
-    public BankAccount(Customer owner) {
+    public BankAccount(String id,Customer owner) {
+        this.accountId = id;
         this.owner = owner;
     }
 
