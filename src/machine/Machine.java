@@ -19,15 +19,31 @@ public abstract class Machine {
     private int money;
     private String location;
     private MachineStatus status;
-    public int receiveMoney; //กานเพิ่มแล้วนะ
+
+    public Machine(String machineId, SubBank subBank, int money, String location) {
+        this.machineId = machineId;
+        this.subBank = subBank;
+        this.money = money;
+        this.location = location;
+        if (money > 1000) {
+            status = MachineStatus.AVAILABLE;
+        } else{
+            status = MachineStatus.MAINTENANCE;
+        }
+    }
     
     public String getMachineId(){
         return machineId;
     }
 
     public void receiveMoney(int money){
+        status = MachineStatus.AVAILABLE;
         this.money+=money;
-    } //ทำถูกไหมน่ะ
+    } 
+    
+    public void decreaseMoney(int money){
+        this.money -= money;
+    }
     
     @Override
     public int hashCode() {
@@ -59,7 +75,15 @@ public abstract class Machine {
 
     public SubBank getSubBank() {
         return subBank;
-    } // ทำตามคำสั่งทุกย่างยิ่งกว่าร้านข้าว
+    }
+    
+    public void returnMoneyToSubBank(){
+        subBank.increaseVault(money);
+        money = 0;
+        status = MachineStatus.CLOSE;
+    }
+    
+    protected abstract void displayMenu();
 
     @Override
     public String toString() {

@@ -9,10 +9,11 @@ package base;
  *
  * @author 62130500127
  */
-public class Employee {
+public class Employee extends Person{
     private String employeeId;
 
-    public Employee(String employeeId) {
+    public Employee(String employeeId, Person person) {
+        super(person.getFirstName(), person.getLastName(), person.getTelephone(), person.getEmail(), person.getAddress());
         this.employeeId = employeeId;
     }
 

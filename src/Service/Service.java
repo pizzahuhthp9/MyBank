@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package bank;
+package Service;
 
 /**
  *
  * @author 62130500127
  */
 public interface Service {
-    public boolean withdraw(int money);
-    public boolean transfer(int money, String id);
+    public void withdraw(int money, String id);
+    public void transfer(int money, String id1, String id2);
 }

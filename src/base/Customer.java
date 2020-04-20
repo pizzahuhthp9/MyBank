@@ -11,17 +11,28 @@ import bank.BankAccount;
  *
  * @author 62130500127
  */
-public class Customer {
+public class Customer extends Person{
     private String customerId;
-    private BankAccount[] BankAccount;
+    private BankAccount BankAccount;
     
-    public Customer(String customerId){
-        
+    public Customer(String customerId, Person person){
+        super(person.getFirstName(), person.getLastName(), person.getTelephone(), person.getEmail(), person.getAddress());
+        this.customerId = customerId;
     }
+    
     public String getCustomerId(){
-        return null;
-        
+        return customerId;
     }
+
+    public BankAccount getBankAccount() {
+        return BankAccount;
+    }
+
+    public void setBankAccount(BankAccount BankAccount) {
+        this.BankAccount = BankAccount;
+    }
+    
+    
 
     @Override
     public String toString() {

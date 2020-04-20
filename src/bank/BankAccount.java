@@ -15,6 +15,8 @@ package bank;
  * and open the template in the editor.
  */
 
+import base.CreditCard;
+import base.Customer;
 import base.Customer;
 import java.util.Objects;
 
@@ -26,10 +28,19 @@ public class BankAccount {
     private Customer owner;
     private int money;
     private String accountId;
+    private CreditCard card;
 
     public BankAccount(String id,Customer owner) {
         this.accountId = id;
         this.owner = owner;
+    }
+    
+    public void createCard(CreditCard card){
+        if (this.card != null) {
+            System.out.println("Card already Exist");
+            return;
+        }
+        this.card = card;
     }
 
     public Customer getOwner() {

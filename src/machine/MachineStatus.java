@@ -10,5 +10,5 @@ package machine;
  * @author 62130500127
  */
 public enum MachineStatus {
-    MAINTENANCE, AVAILABLE, NOAVAILABLE;
+    MAINTENANCE, AVAILABLE, CLOSE;
 }
