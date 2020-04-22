@@ -13,7 +13,6 @@ import bank.BankAccount;
  */
 public class Customer extends Person{
     private String customerId;
-    private BankAccount BankAccount;
     
     public Customer(String customerId, Person person){
         super(person.getFirstName(), person.getLastName(), person.getTelephone(), person.getEmail(), person.getAddress());
@@ -24,18 +23,8 @@ public class Customer extends Person{
         return customerId;
     }
 
-    public BankAccount getBankAccount() {
-        return BankAccount;
-    }
-
-    public void setBankAccount(BankAccount BankAccount) {
-        this.BankAccount = BankAccount;
-    }
-    
-    
-
     @Override
     public String toString() {
-        return "Customer{" + "customerId=" + customerId + ", BankAccount=" + BankAccount + '}';
+        return "Customer{" + "customerId=" + customerId +  '}';
     } 
 }

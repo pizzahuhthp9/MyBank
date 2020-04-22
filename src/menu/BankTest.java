@@ -1,4 +1,4 @@
-package test;
+package menu;
 
 import Service.*;
 import bank.BankAccount;

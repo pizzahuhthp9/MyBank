@@ -23,11 +23,11 @@ public class SubBank {
 
     private MainBank mainBank;
     private int vault;
-    private String address;
+    private String id;
     private CounterService counterService;
 
-    public SubBank(String address, CounterService counter, MainBank mainBank) {
-        this.address = address;
+    public SubBank(String id, CounterService counter, MainBank mainBank) {
+        this.id = id;
         this.counterService = counter;
         counter.setSubBank(this);
         this.mainBank = mainBank;
@@ -35,10 +35,9 @@ public class SubBank {
 
     public BankAccount createBankAccount(String id, int money, Customer customer) {
         int index = mainBank.searchAccount(id);
-        if (index == -1 && customer.getBankAccount() == null) {
+        if (index == -1) {
             BankAccount ac = new BankAccount(id, customer);
             mainBank.addAccount(ac);
-            customer.setBankAccount(ac);
             return ac;
         } else{
             System.out.println("the account is already exist");
@@ -90,7 +89,7 @@ public class SubBank {
     }
 
     public String getAddress() {
-        return address;
+        return id;
     }
 
     public CounterService getCounterService() {
@@ -99,7 +98,7 @@ public class SubBank {
 
     @Override
     public String toString() {
-        return "SubBank{" + "vault=" + vault + ", address=" + address + ", counterService=" + counterService + '}';
+        return "SubBank{" + "vault=" + vault + ", id=" + id + ", counterService=" + counterService + '}';
     }
 
 }
