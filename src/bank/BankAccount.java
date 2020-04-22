@@ -65,7 +65,7 @@ public class BankAccount {
     
     @Override
     public String toString() {
-        return "BankAccount{" + "owner=" + owner + ", Money=" + money + '}';
+        return String.format("AccountId : %s\nname : %s %s\nCurrent Money : %d\n", accountId, owner.getFirstName(), owner.getLastName(), money);
     }
 
     @Override

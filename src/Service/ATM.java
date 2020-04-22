@@ -6,6 +6,7 @@
 package Service;
 
 import Service.Service;
+import bank.MainBank;
 import bank.SubBank;
 import base.CreditCard;
 import machine.Machine;
@@ -18,8 +19,8 @@ import machine.MachineStatus;
 public class ATM extends Machine{
     CreditCard card;
     
-    public ATM(String machineId,SubBank subbank,int money,String location) {
-       super(machineId, subbank, money, location);
+    public ATM(String machineId,MainBank main,int money) {
+       super(machineId, money, main);
     }
 
     public String getMachineId(){
@@ -37,25 +38,25 @@ public class ATM extends Machine{
         }
         this.card = card;
         
-        while(card != null){
-            displayMenu();
-        }
+//        while(card != null){
+//            displayMenu();
+//        }
     }
     
-    private void returnCard(){
+    public void returnCard(){
         this.card = null;
     }
         
-    private void withdraw(int money) {
+    public void withdraw(int money) {
         if (money > super.getMoney()) {
             System.out.println("ATM have not enough money");
             return;
         }
-        super.getSubBank().withdraw(money, card.getAccount().getAccountId());
+        super.getMainBank().withdraw(money, card.getAccount().getAccountId());
     }
 
-    private void transfer(int money, String id2) {
-        super.getSubBank().transfer(money, card.getAccount().getAccountId(), id2);
+    public void transfer(int money, String id) {
+        super.getMainBank().transferBankAccount(money, card.getAccount().getAccountId(), id);
     }
 
     @Override

@@ -36,14 +36,6 @@ public class MainBank {
     public int getTotalMoney() {
         return totalMoney;
     }
-//
-//    public SubBank[] getSubBanks() {
-//        return subBanks;
-//    }
-//
-//    public void setVault(int vault) {
-//        this.vault = vault;
-//    }
 
     public int searchSubBank(String id) {
         for (int i = 0; i < subBanks.length-1; i++) {
@@ -63,7 +55,7 @@ public class MainBank {
         return -1;
     }
 
-    protected void transferBankAccount(int money, String id1, String id2) {
+    public void transferBankAccount(int money, String id1, String id2) {
         int x = searchAccount(id1);
         if (x >= 0) {
             bankAccount[x].decreaseMoney(money);
@@ -74,23 +66,21 @@ public class MainBank {
         }
     }
 
-    protected boolean deposit(int money, String id, SubBank subbank) {
+    public boolean deposit(int money, String id) {
         int index = searchAccount(id);
         if (index >= 0) {
             bankAccount[index].receiveMoney(money);
-            subbank.increaseVault(money);
             totalMoney += money;
             return true;
         }
         return false;
     }
 
-    protected boolean withdraw(int money, String id, SubBank subbank) {
+    public boolean withdraw(int money, String id) {
         int index = searchAccount(id);
         if (index >= 0) {
-            if (bankAccount[index].getMoney() >= money && subbank.getVault() >= money) {
+            if (bankAccount[index].getMoney() >= money) {
                 bankAccount[index].decreaseMoney(money);
-                subbank.decreaseVault(money);
                 totalMoney -= money;
                 return true;
             } else {
@@ -100,7 +90,7 @@ public class MainBank {
         return false;
     }
 
-    public void tranferVault(int money, String ad1, String ad2) {
+    public void transferVault(int money, String ad1, String ad2) {
         int x = searchSubBank(ad1);
         if (x != -1) {
             subBanks[x].decreaseVault(money);
@@ -133,20 +123,6 @@ public class MainBank {
         bankAccount[accountCount + 1] = null;
     }
 
-//    public void newSubBank(int vault, String address, Employee employee) {
-//        int index = searchSubBank(address);
-//        if (index >= 0) {
-//            System.out.println("SubBank is already exist subBank");
-//            return;
-//        }
-//        if (vault < this.vault) {
-//            this.vault -= vault;
-//            subBanks[subBankCount++] = new SubBank(vault, address, employee, this);
-//            SubBank[] temp = new SubBank[subBanks.length + 1];
-//            System.arraycopy(subBanks, 0, temp, 0, subBanks.length);
-//            subBanks = temp;
-//        }
-//    }
     public void addSubBank(SubBank sub) {
         int index = searchSubBank(sub.getAddress());
         if (index >= 0) {
@@ -162,9 +138,6 @@ public class MainBank {
     public void deleteSubBank(String address) {
         int index = searchSubBank(address);
         if (index >= 0) {
-            for (int i = 0; i < subBanks[index].getMachines().length - 1; i++) {
-                subBanks[index].getMachineAt(i).returnMoneyToSubBank();
-            }
             this.vault += subBanks[index].getVault();
             subBanks[index] = null;
             subBankCount--;
@@ -176,9 +149,6 @@ public class MainBank {
         }
     }
 
-//    public void updateTotalMoney(int money){
-//        this.totalMoney += money;
-//    }
     @Override
     public String toString() {
         return "MainBank{" + "vault=" + vault + ", totalMoney=" + totalMoney + ", subBanks=" + subBanks + '}';

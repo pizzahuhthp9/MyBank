@@ -27,7 +27,7 @@ public class CounterService implements Service{
         subBank.deposit(money, id);
     }
     
-    public boolean deleteAccount(String id){
+    public void deleteAccount(String id){
         subBank.deleteBankAccount(id);
     }
     

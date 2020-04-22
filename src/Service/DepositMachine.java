@@ -5,6 +5,7 @@
  */
 package Service;
 
+import bank.MainBank;
 import bank.SubBank;
 import machine.Machine;
 import machine.MachineStatus;
@@ -14,12 +15,12 @@ import machine.MachineStatus;
  * @author 62130500127
  */
 public class DepositMachine extends Machine{
-    public DepositMachine(String machineId,SubBank subbank,int money,String location) {
-            super(machineId, subbank, money, location);
+    public DepositMachine(String machineId,MainBank mainBank,int money) {
+            super(machineId, money, mainBank);
     }
                 
     public void deposit(int money,String id){
-        
+        super.getMainBank().deposit(money, id);
     }
 
     @Override

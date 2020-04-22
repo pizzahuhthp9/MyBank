@@ -5,6 +5,7 @@
  */
 package machine;
 
+import bank.MainBank;
 import bank.SubBank;
 import java.util.Comparator;
 import java.util.Objects;
@@ -15,16 +16,14 @@ import java.util.Objects;
  */
 public abstract class Machine {
     private String machineId;
-    private SubBank subBank;
     private int money;
-    private String location;
     private MachineStatus status;
+    private MainBank mainBank;
 
-    public Machine(String machineId, SubBank subBank, int money, String location) {
+    public Machine(String machineId, int money, MainBank main) {
         this.machineId = machineId;
-        this.subBank = subBank;
         this.money = money;
-        this.location = location;
+        this.mainBank = main;
         if (money > 1000) {
             status = MachineStatus.AVAILABLE;
         } else{
@@ -36,8 +35,11 @@ public abstract class Machine {
         return machineId;
     }
 
+    public MainBank getMainBank() {
+        return mainBank;
+    }
+
     public void receiveMoney(int money){
-        status = MachineStatus.AVAILABLE;
         this.money+=money;
     } 
     
@@ -72,22 +74,12 @@ public abstract class Machine {
     public int getMoney(){
         return money;
     }
-
-    public SubBank getSubBank() {
-        return subBank;
-    }
-    
-    public void returnMoneyToSubBank(){
-        subBank.increaseVault(money);
-        money = 0;
-        status = MachineStatus.CLOSE;
-    }
     
     protected abstract void displayMenu();
 
     @Override
     public String toString() {
-        return "Machine{" + "machineId=" + machineId + ", subBank=" + subBank + ", money=" + money + ", status=" + status + '}';
+        return "Machine{" + "machineId=" + machineId + ", money=" + money + ", status=" + status + '}';
     }
     
 }

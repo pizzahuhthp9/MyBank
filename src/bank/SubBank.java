@@ -24,61 +24,13 @@ public class SubBank {
     private MainBank mainBank;
     private int vault;
     private String address;
-    private Machine[] machines;
-    private int machineCount;
     private CounterService counterService;
 
     public SubBank(String address, CounterService counter, MainBank mainBank) {
         this.address = address;
         this.counterService = counter;
         counter.setSubBank(this);
-        machines = new Machine[10];
         this.mainBank = mainBank;
-    }
-
-    private void expandMachineSzie() {
-        Machine[] temp = new Machine[machines.length + 10];
-        System.arraycopy(machines, 0, temp, 0, machines.length);
-        machines = temp;
-    }
-
-    private int searchMachine(String id) {
-        for (int i = 0; i < machines.length - 1; i++) {
-            if (machines[i].getMachineId().equals(id)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    public boolean isMachineFull() {
-        if (machines.length == machineCount) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean addMoneyToATM(String id, int money) {
-        int index = searchMachine(id);
-        if (index >= 0 && money >= this.vault) {
-            machines[index].receiveMoney(money);
-            vault -= money;
-            return true;
-        }
-        return false;
-    }
-
-    public void createATM(String id, int money, String location) {
-        int index = searchMachine(id);
-        if (index == -1) {
-            if (isMachineFull()) {
-                expandMachineSzie();
-            }
-            if (money > this.vault) {
-                machines[machineCount++] = new ATM(id, this, money, location);
-            }
-
-        }
     }
 
     public BankAccount createBankAccount(String id, int money, Customer customer) {
@@ -108,7 +60,9 @@ public class SubBank {
     }
     
     public void deposit(int money, String id){
-        mainBank.deposit(money, id, this);
+        if (mainBank.deposit(money, id)) {
+            vault += money;
+        }
     }
     
     public void withdraw(int money, String id){
@@ -116,20 +70,8 @@ public class SubBank {
             System.out.println("Bank have not enough money");
             return;
         }
-        mainBank.withdraw(money, id, this);
-    }
-    
-    public void deposit(int money, String id, Machine machine){
-        if(mainBank.deposit(money, id, this)){
+        if (mainBank.withdraw(money, id)) {
             vault -= money;
-            machine.receiveMoney(money);
-        }
-    }
-    
-    public void withdraw(int money, String id, Machine machine){
-        if (mainBank.withdraw(money, id, this)) {
-            vault += money;
-            machine.decreaseMoney(money);
         }
     }
 
@@ -155,17 +97,9 @@ public class SubBank {
         return counterService;
     }
 
-    public int getMachineCount() {
-        return machineCount;
-    }
-
-    public Machine[] getMachines() {
-        return machines;
-    }
-
     @Override
     public String toString() {
-        return "SubBank{" + "vault=" + vault + ", address=" + address + ", ATMs=" + machines + ", counterService=" + counterService + '}';
+        return "SubBank{" + "vault=" + vault + ", address=" + address + ", counterService=" + counterService + '}';
     }
 
 }
