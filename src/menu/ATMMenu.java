@@ -5,6 +5,7 @@
  */
 package menu;
 
+import Service.ATM;
 import java.util.Scanner;
 
 /**
@@ -12,15 +13,20 @@ import java.util.Scanner;
  * @author karn
  */
 public class ATMMenu {
-     public static void main(String[] args) {
-        String menu = "Select Menu:\n"
-                + "1. Deposit Money\n"
-                + "2. Withdraw Money\n"
-                + "0. Exit"
-                + "----Select: ";
+
+    private static String menu = "Select Menu\n"
+            + "1. Deposit Money\n"
+            + "2. Withdraw Money\n"
+            + "0. Exit\n"
+            + "----Select: ";
+
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println(menu);
+        System.out.print("insert card id : ");
+        String cardId = input.next();
         
+        System.out.print(menu);
+
 //        switch () {
 //            case 1:
 //                break;
@@ -30,5 +36,5 @@ public class ATMMenu {
 //            default:
 //           
 //        }
-     }
+    }
 }

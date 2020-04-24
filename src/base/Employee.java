@@ -11,10 +11,12 @@ package base;
  */
 public class Employee extends Person{
     private String employeeId;
+    private boolean free;
 
-    public Employee(String employeeId, Person person) {
+    public Employee(String employeeId, Person person, boolean status) {
         super(person.getFirstName(), person.getLastName(), person.getTelephone(), person.getEmail(), person.getAddress());
         this.employeeId = employeeId;
+        this.free = status;
     }
 
     public String getEmployeeId() {

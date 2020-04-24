@@ -61,6 +61,6 @@ public class ATM extends Machine{
 
     @Override
     protected void displayMenu() {
-        System.out.printf("================\n1.)withdraw\n2.transfer\n================");
+        System.out.println("");
     }
 }

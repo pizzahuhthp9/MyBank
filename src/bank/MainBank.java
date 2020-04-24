@@ -22,9 +22,9 @@ public class MainBank {
     private int subBankCount;
     private int accountCount;
 
-    public MainBank(int money) {
+    public MainBank(int money, int totalMoney) {
         this.vault = money;
-        this.totalMoney = money;
+        this.totalMoney = totalMoney;
         subBanks = new SubBank[1];
         bankAccount = new BankAccount[1];
     }
@@ -39,7 +39,7 @@ public class MainBank {
 
     public int searchSubBank(String id) {
         for (int i = 0; i < subBanks.length-1; i++) {
-            if (subBanks[i].getAddress().equals(id)) {
+            if (subBanks[i].getId().equals(id)) {
                 return i;
             }
         }
@@ -124,7 +124,7 @@ public class MainBank {
     }
 
     public void addSubBank(SubBank sub) {
-        int index = searchSubBank(sub.getAddress());
+        int index = searchSubBank(sub.getId());
         if (index >= 0) {
             System.out.println("SubBank is already exist subBank");
             return;

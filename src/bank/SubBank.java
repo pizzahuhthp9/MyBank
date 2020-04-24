@@ -88,7 +88,7 @@ public class SubBank {
         return vault;
     }
 
-    public String getAddress() {
+    public String getId() {
         return id;
     }
 

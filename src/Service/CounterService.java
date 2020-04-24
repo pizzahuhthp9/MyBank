@@ -21,7 +21,10 @@ public class CounterService implements Service{
     public CounterService(Employee employee) {
         this.employee = employee;
     }
-    
+
+    public Employee getEmployee() {
+        return employee;
+    }
     
     public void deposite(int money, String id){
         subBank.deposit(money, id);

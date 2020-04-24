@@ -11,7 +11,7 @@ import base.Person;
 
 public class BankTest {
     public static void main(String[] args) {
-        MainBank m1 = new MainBank(1000000);
+        MainBank m1 = new MainBank(1000000,1000000);
         ATM atm = new ATM("atm01", m1, 10000);
         DepositMachine depo = new DepositMachine("depo01", m1, 10000);
         
@@ -25,9 +25,9 @@ public class BankTest {
         Customer c2 = new Customer("c02", p1);
         Customer c3 = new Customer("c03", p5);
         
-        Employee e1 = new Employee("e01", p1);
-        Employee e2 = new Employee("e02", p3);
-        Employee e3 = new Employee("e03", p4);
+        Employee e1 = new Employee("e01", p1, true);
+        Employee e2 = new Employee("e02", p3, true);
+        Employee e3 = new Employee("e03", p4, true);
         
         CounterService cs1 = new CounterService(e1);
         SubBank sb1 = new SubBank("53/968", cs1, m1);
