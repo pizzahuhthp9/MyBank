@@ -79,7 +79,7 @@ public class MainBank {
         return customers;
     }
 
-    public int searchSubBankById(String id) { //
+    public int searchSubBankById(String id) { 
         for (int i = 0; i < subBanks.size(); i++) {
             if (subBanks.get(i).getId().equals(id)) {
                 return i;
@@ -88,7 +88,7 @@ public class MainBank {
         return -1;
     }
 
-    public int searchAccountById(String id) { //
+    public int searchAccountById(String id) { 
         for (int i = 0; i < bankAccounts.size(); i++) {
             if (bankAccounts.get(i).getAccountId().equals(id)) {
                 return i;
@@ -97,7 +97,7 @@ public class MainBank {
         return -1;
     }
 
-    public int searchEmployeeById(String id) { //
+    public int searchEmployeeById(String id) { 
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getEmployeeId().equals(id)) {
                 return i;
@@ -195,12 +195,13 @@ public class MainBank {
     }
 
     public void newAccount(BankAccount account) {
-        int index = searchAccountById(account.getAccountId());
-        if (index >= 0) {
-            System.out.println("Account is already exist");
-            return;
-        }
-        bankAccounts.add(account);
+//        int index = searchAccountById(account.getAccountId());
+//        if (index >= 0) {
+//            System.out.println("Account is already exist");
+//            return;
+//        }
+//        bankAccounts.add(account);
+        addAccount(account);
         accDao.insert(account);
     }
     
@@ -219,12 +220,13 @@ public class MainBank {
     }
 
     public void newSubBank(SubBank sub) {
-        int index = searchSubBankById(sub.getId());
-        if (index >= 0) {
-            System.out.println("SubBank is already exist");
-            return;
-        }
-        subBanks.add(sub);
+//        int index = searchSubBankById(sub.getId());
+//        if (index >= 0) {
+//            System.out.println("SubBank is already exist");
+//            return;
+//        }
+//        subBanks.add(sub);
+        addSubBank(sub);
         subDao.insert(sub);
     }
 
@@ -246,12 +248,13 @@ public class MainBank {
     }
 
     public void newEmployee(Employee emp) {
-        int index = searchEmployeeById(emp.getEmployeeId());
-        if (index >= 0) {
-            System.out.println("Employee is already exist");
-            return;
-        }
-        employees.add(emp);
+//        int index = searchEmployeeById(emp.getEmployeeId());
+//        if (index >= 0) {
+//            System.out.println("Employee is already exist");
+//            return;
+//        }
+//        employees.add(emp);
+        addEmployee(emp);
         empDao.insert(emp);
     }
 
@@ -269,6 +272,17 @@ public class MainBank {
         empDao.delete(emp);
     }
 
+    public void newCustomer(Customer cus) {
+//        int index = searchCustomerById(cus.getCustomerId());
+//        if (index >= 0) {
+//            System.out.println("Customer is already exist");
+//            return;
+//        }
+//        customers.add(cus);
+        addCustomer(cus);
+        cusDao.insert(cus);
+    }
+    
     public void addCustomer(Customer cus) {
         int index = searchCustomerById(cus.getCustomerId());
         if (index >= 0) {
@@ -277,17 +291,7 @@ public class MainBank {
         }
         customers.add(cus);
     }
-    
-    public void newCustomer(Customer cus) {
-        int index = searchCustomerById(cus.getCustomerId());
-        if (index >= 0) {
-            System.out.println("Customer is already exist");
-            return;
-        }
-        customers.add(cus);
-        cusDao.insert(cus);
-    }
-    
+        
     public void deleteCustomer(Customer cus){
         customers.remove(cus);
         cusDao.delete(cus);
