@@ -5,6 +5,9 @@
  */
 package base;
 
+import dataaccess.EmployeeDaoImp;
+import dataaccess.model.DBDao;
+
 /**
  *
  * @author 62130500127
@@ -12,6 +15,8 @@ package base;
 public class Employee extends Person{
     private String employeeId;
     private boolean free;
+    
+    DBDao empDao = new EmployeeDaoImp();
 
     public Employee(String employeeId, Person person, boolean status) {
         super(person.getFirstName(), person.getLastName(), person.getTelephone(), person.getEmail(), person.getAddress());
@@ -23,10 +28,21 @@ public class Employee extends Person{
         return employeeId;
     }
 
+    public void setFree(boolean free) { // update emp
+        this.free = free;
+        empDao.update(this);
+    }
+
+    public boolean isFree() {
+        return free;
+    }
+
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + '}';
+        return "Employee{" + "employeeId=" + employeeId + ", free=" + free + '}';
     }
+
+    
     
     
 }

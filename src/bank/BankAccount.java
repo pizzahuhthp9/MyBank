@@ -15,7 +15,6 @@ package bank;
  * and open the template in the editor.
  */
 
-import base.CreditCard;
 import base.Customer;
 import base.Customer;
 import java.util.Objects;
@@ -28,19 +27,11 @@ public class BankAccount {
     private Customer owner;
     private int money;
     private String accountId;
-    private CreditCard card;
 
-    public BankAccount(String id,Customer owner) {
+    public BankAccount(String id,Customer owner, int money) {
         this.accountId = id;
         this.owner = owner;
-    }
-    
-    public void createCard(CreditCard card){
-        if (this.card != null) {
-            System.out.println("Card already Exist");
-            return;
-        }
-        this.card = card;
+        this.money = money;
     }
 
     public Customer getOwner() {
@@ -60,42 +51,15 @@ public class BankAccount {
     }
     
     public void decreaseMoney(int money){
-        this.money -= money;
+        if (this.money >= money) {
+            this.money -= money;
+        }
     }
     
     @Override
     public String toString() {
         return String.format("AccountId : %s\nname : %s %s\nCurrent Money : %d\n", accountId, owner.getFirstName(), owner.getLastName(), money);
     }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final BankAccount other = (BankAccount) obj;
-        if (this.money != other.money) {
-            return false;
-        }
-        if (!Objects.equals(this.owner, other.owner)) {
-            return false;
-        }
-        return true;
-    }
-    
-    
     
 }
 

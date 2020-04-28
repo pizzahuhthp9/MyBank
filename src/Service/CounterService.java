@@ -14,47 +14,53 @@ import base.Employee;
  *
  * @author 62130500127
  */
-public class CounterService implements Service{
+public class CounterService{
     private Employee employee;
     private SubBank subBank;
 
     public CounterService(Employee employee) {
-        this.employee = employee;
+        employee.setFree(false);
+        this.employee = employee;  
     }
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public SubBank getSubBank() {
+        return subBank;
+    }
+    
+    public void setSubBank(SubBank subBank) {
+        this.subBank = subBank;
     }
     
     public void deposite(int money, String id){
         subBank.deposit(money, id);
     }
     
-    public void deleteAccount(String id){
-        subBank.deleteBankAccount(id);
+    public void withdraw(int money, String id) {
+        subBank.withdraw(money, id);
+    }
+
+    public void transfer(int money, String id1, String id2) {
+        subBank.transfer(money, id1, id2);
+    }
+    
+    public void deleteAccount(BankAccount acc){
+        subBank.deleteBankAccount(acc);
     }
     
     public BankAccount newAccount(String id, Customer customer){
         return subBank.createBankAccount(id, 0, customer);
     }
-
-    public void setSubBank(SubBank subBank) {
-        this.subBank = subBank;
-    }
+    
     
     @Override
     public String toString() {
         return "CounterService{" + "employee=" + employee + ", subBank=" + subBank + '}';
     }
 
-    @Override
-    public void withdraw(int money, String id) {
-        subBank.withdraw(money, id);
-    }
-
-    @Override
-    public void transfer(int money, String id1, String id2) {
-        subBank.transfer(money, id1, id2);
-    }
+    
      
 }

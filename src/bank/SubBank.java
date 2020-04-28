@@ -11,9 +11,9 @@ package bank;
 import Service.CounterService;
 import base.Customer;
 import base.Employee;
-import Service.ATM;
-import machine.Machine;
-import machine.MachineStatus;
+import dataaccess.BankAccountDaoImp;
+import dataaccess.SubBankDaoImp;
+import dataaccess.model.DBDao;
 
 /**
  *
@@ -25,18 +25,20 @@ public class SubBank {
     private int vault;
     private String id;
     private CounterService counterService;
+    private DBDao subDao = new SubBankDaoImp();
 
-    public SubBank(String id, CounterService counter, MainBank mainBank) {
+    public SubBank(String id, CounterService counter, MainBank mainBank, int vault) {
         this.id = id;
         this.counterService = counter;
         counter.setSubBank(this);
         this.mainBank = mainBank;
+        this.vault = vault;
     }
 
     public BankAccount createBankAccount(String id, int money, Customer customer) {
-        int index = mainBank.searchAccount(id);
+        int index = mainBank.searchAccountById(id);
         if (index == -1) {
-            BankAccount ac = new BankAccount(id, customer);
+            BankAccount ac = new BankAccount(id, customer, 0);
             mainBank.addAccount(ac);
             return ac;
         } else{
@@ -45,10 +47,10 @@ public class SubBank {
         }
     }
     
-    public boolean deleteBankAccount(String id){
-        int index = mainBank.searchAccount(id);
+    public boolean deleteBankAccount(BankAccount acc){
+        int index = mainBank.searchAccountById(acc.getAccountId());
         if (index >= 0) {
-            mainBank.deleteAccount(id);
+            mainBank.deleteAccount(acc);
             return true;
         }
         return false;
@@ -59,8 +61,9 @@ public class SubBank {
     }
     
     public void deposit(int money, String id){
-        if (mainBank.deposit(money, id)) {
+        if (mainBank.deposit(money, id, this)) {
             vault += money;
+            subDao.update(this);
         }
     }
     
@@ -69,18 +72,20 @@ public class SubBank {
             System.out.println("Bank have not enough money");
             return;
         }
-        if (mainBank.withdraw(money, id)) {
+        if (mainBank.withdraw(money, id, this)) {
             vault -= money;
         }
     }
 
     public void increaseVault(int money) {
         this.vault += money;
+        subDao.update(this);
     }
 
     public void decreaseVault(int money) {
         if (this.vault >= money) {
             this.vault -= money;
+            subDao.update(this);
         }
     }
 
@@ -98,7 +103,8 @@ public class SubBank {
 
     @Override
     public String toString() {
-        return "SubBank{" + "vault=" + vault + ", id=" + id + ", counterService=" + counterService + '}';
+        return "SubBank{" + "id=" + id + ", vault=" + vault + ", counterServiceEmployee=" + counterService.getEmployee().getFirstName();
+        
     }
 
 }
