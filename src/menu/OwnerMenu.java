@@ -5,7 +5,7 @@
  */
 package menu;
 
-import Service.CounterService;
+import bank.CounterService;
 import bank.BankAccount;
 import bank.MainBank;
 import bank.SubBank;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import menu.Menu;
 
 /**
  *

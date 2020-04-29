@@ -115,7 +115,7 @@ public class MainBank {
         return -1;
     }
 
-    public void transferBankAccount(int money, String id1, String id2) {
+    public boolean transferBankAccount(int money, String id1, String id2) {
         int index1 = searchAccountById(id1);
         if (index1 >= 0) {
             int index2 = searchAccountById(id2);
@@ -124,8 +124,10 @@ public class MainBank {
                 bankAccounts.get(index2).receiveMoney(money);
                 accDao.update(bankAccounts.get(index1));
                 accDao.update(bankAccounts.get(index2));
+                return true;
             }
         }
+        return false;
     }
 
     public boolean deposit(int money, String id, SubBank sub) {
@@ -195,12 +197,6 @@ public class MainBank {
     }
 
     public void newAccount(BankAccount account) {
-//        int index = searchAccountById(account.getAccountId());
-//        if (index >= 0) {
-//            System.out.println("Account is already exist");
-//            return;
-//        }
-//        bankAccounts.add(account);
         addAccount(account);
         accDao.insert(account);
     }
@@ -220,14 +216,9 @@ public class MainBank {
     }
 
     public void newSubBank(SubBank sub) {
-//        int index = searchSubBankById(sub.getId());
-//        if (index >= 0) {
-//            System.out.println("SubBank is already exist");
-//            return;
-//        }
-//        subBanks.add(sub);
         addSubBank(sub);
         subDao.insert(sub);
+        createMenuFile(sub);
     }
 
     public void addSubBank(SubBank sub) {
@@ -248,12 +239,6 @@ public class MainBank {
     }
 
     public void newEmployee(Employee emp) {
-//        int index = searchEmployeeById(emp.getEmployeeId());
-//        if (index >= 0) {
-//            System.out.println("Employee is already exist");
-//            return;
-//        }
-//        employees.add(emp);
         addEmployee(emp);
         empDao.insert(emp);
     }
@@ -273,12 +258,6 @@ public class MainBank {
     }
 
     public void newCustomer(Customer cus) {
-//        int index = searchCustomerById(cus.getCustomerId());
-//        if (index >= 0) {
-//            System.out.println("Customer is already exist");
-//            return;
-//        }
-//        customers.add(cus);
         addCustomer(cus);
         cusDao.insert(cus);
     }
@@ -350,6 +329,10 @@ public class MainBank {
         for (int i = 0; i < customers.size(); i++) {
             System.out.println(i + 1 + ".)" + customers.get(i));
         }
+    }
+    
+    public void createMenuFile(SubBank sub){
+        
     }
 
     @Override

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu;
+package menu.sub;
 
-import Service.CounterService;
+import bank.CounterService;
 import bank.BankAccount;
 import bank.MainBank;
 import base.Customer;
@@ -13,6 +13,7 @@ import base.Person;
 import dataaccess.CustomerDaoImp;
 import dataaccess.model.DBDao;
 import java.util.Scanner;
+import menu.Menu;
 
 /**
  *
@@ -118,7 +119,7 @@ public class BankMenu extends Menu {
             }
         } while (money < 0);
         
-        main.deposit(money, "acc" + id, cs.getSubBank());
+        cs.deposit(money, "acc" + id);
     }
     
     public static void withdraw(){
@@ -146,7 +147,7 @@ public class BankMenu extends Menu {
             }
         } while (money < 0);
         
-        main.withdraw(money, "acc" + id, cs.getSubBank());
+        cs.withdraw(money, "acc" + id);
     }
     
     public static void transfer(){
@@ -189,8 +190,11 @@ public class BankMenu extends Menu {
             }
         } while (money < 0);
         
-        main.transferBankAccount(money, "acc" + id1, "acc" + id2);
-        System.out.println("transfer complete");
+        if (cs.transfer(money, "acc" + id1, "acc" + id2)) {
+            System.out.println("transfer complete");
+        } else{
+            System.out.println("not enough money");
+        }
         pressEnter();
     }
 
@@ -225,7 +229,7 @@ public class BankMenu extends Menu {
                 pressEnter();
             }
         } while (accId.length() != 3 || check >= 0);
-        main.newAccount(new BankAccount("acc" + accId, main.getCustomers().get(cusCheck), 0));
+        cs.newAccount("acc" + accId, main.getCustomers().get(cusCheck));
     }
     
     public static void deleteAccount(){
@@ -259,7 +263,7 @@ public class BankMenu extends Menu {
             }
         } while (accId.length() != 3 || check == -1);
         
-        main.deleteAccount(main.getBankAccounts().get(check));
+        cs.deleteAccount(main.getBankAccounts().get(check));
     }
     
     public static void register() {
@@ -317,7 +321,7 @@ public class BankMenu extends Menu {
         if (surname.equals("0")) {
             return;
         }
-        main.newCustomer(new Customer("cus" + id, new Person(name, surname, tele, email, address)));
+        cs.newCustomer("cus" + id , new Person(name, surname, tele, email, address));
     }
     
     public static void check(){

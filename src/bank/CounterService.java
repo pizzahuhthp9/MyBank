@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Service;
+package bank;
 
 import bank.BankAccount;
 import bank.SubBank;
 import base.Customer;
 import base.Employee;
+import base.Person;
 
 /**
  *
@@ -43,22 +44,30 @@ public class CounterService{
         subBank.withdraw(money, id);
     }
 
-    public void transfer(int money, String id1, String id2) {
-        subBank.transfer(money, id1, id2);
+    public boolean transfer(int money, String id1, String id2) {
+        return subBank.transfer(money, id1, id2);
     }
     
     public void deleteAccount(BankAccount acc){
         subBank.deleteBankAccount(acc);
     }
     
-    public BankAccount newAccount(String id, Customer customer){
+    public boolean newAccount(String id, Customer customer){
         return subBank.createBankAccount(id, 0, customer);
+    }
+    
+    public boolean newCustomer(String id, Person person){
+        return subBank.createCustomer(new Customer(id, person));
     }
     
     
     @Override
     public String toString() {
         return "CounterService{" + "employee=" + employee + ", subBank=" + subBank + '}';
+    }
+
+    public void deposit(int money, String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

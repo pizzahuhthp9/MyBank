@@ -5,7 +5,7 @@
  */
 package dataaccess;
 
-import Service.CounterService;
+import bank.CounterService;
 import bank.MainBank;
 import bank.SubBank;
 import base.Employee;
