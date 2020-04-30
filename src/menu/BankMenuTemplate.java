@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu.sub;
+package menu;
 
 import bank.CounterService;
 import bank.BankAccount;
@@ -19,7 +19,7 @@ import menu.Menu;
  *
  * @author karn
  */
-public class sub001Menu extends Menu {
+public class BankMenuTemplate extends Menu {
 
     private static MainBank main = loadData();
     private static CounterService cs;
@@ -36,8 +36,27 @@ public class sub001Menu extends Menu {
                 + "0. Exit\n"
                 + "----Select: ";
         Scanner sc = new Scanner(System.in);
-        cs = main.getSubBanks().get(main.searchSubBankById("sub001")).getCounterService();
-        cs.getSubBank().setMainBank(main);        
+        String subId;
+        int check;
+        do {            
+            System.out.print("please insert sub bank id (insert \"0\" to cancel) :");
+            subId = sc.next();
+            check = main.searchSubBankById("sub" + subId);
+            if (subId.equals("0")) {
+                return;
+            } else if(subId.length() != 3){
+                System.out.println("ID must be 3 digits number");
+                pressEnter();
+            } else if(check == -1){
+                System.out.println("Sub bank does not exist");
+                pressEnter();
+            }
+            
+        } while (check == -1 || subId.length() != 3);
+        
+        cs = main.getSubBanks().get(check).getCounterService();
+        cs.getSubBank().setMainBank(main);
+        
         int input;
         do {
             System.out.print(menu);
