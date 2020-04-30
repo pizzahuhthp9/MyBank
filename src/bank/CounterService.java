@@ -36,7 +36,7 @@ public class CounterService{
         this.subBank = subBank;
     }
     
-    public void deposite(int money, String id){
+    public void deposit(int money, String id){
         subBank.deposit(money, id);
     }
     
@@ -65,11 +65,4 @@ public class CounterService{
     public String toString() {
         return "CounterService{" + "employee=" + employee + ", subBank=" + subBank + '}';
     }
-
-    public void deposit(int money, String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    
-     
 }

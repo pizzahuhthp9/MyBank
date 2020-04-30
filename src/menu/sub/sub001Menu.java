@@ -19,7 +19,7 @@ import menu.Menu;
  *
  * @author karn
  */
-public class BankMenu extends Menu {
+public class sub001Menu extends Menu {
 
     private static MainBank main = loadData();
     private static CounterService cs;
@@ -36,26 +36,8 @@ public class BankMenu extends Menu {
                 + "0. Exit\n"
                 + "----Select: ";
         Scanner sc = new Scanner(System.in);
-        String subId;
-        int check;
-        do {            
-            System.out.print("please insert sub bank id (insert \"0\" to cancel) :");
-            subId = sc.next();
-            check = main.searchSubBankById("sub" + subId);
-            if (subId.equals("0")) {
-                return;
-            } else if(subId.length() != 3){
-                System.out.println("ID must be 3 digits number");
-                pressEnter();
-            } else if(check == -1){
-                System.out.println("Sub bank does not exist");
-                pressEnter();
-            }
-            
-        } while (check == -1 || subId.length() != 3);
-        
-        cs = main.getSubBanks().get(check).getCounterService();
-        
+        cs = main.getSubBanks().get(main.searchSubBankById("sub001")).getCounterService();
+        cs.getSubBank().setMainBank(main);        
         int input;
         do {
             System.out.print(menu);

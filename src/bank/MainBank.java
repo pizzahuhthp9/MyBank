@@ -15,7 +15,12 @@ import dataaccess.MainBankDaoImp;
 import dataaccess.SubBankDaoImp;
 import dataaccess.model.DBDao;
 import dataaccess.model.MainBankDBDao;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -80,6 +85,7 @@ public class MainBank {
     }
 
     public int searchSubBankById(String id) { 
+//        subBanks = subDao.getAll();
         for (int i = 0; i < subBanks.size(); i++) {
             if (subBanks.get(i).getId().equals(id)) {
                 return i;
@@ -89,6 +95,7 @@ public class MainBank {
     }
 
     public int searchAccountById(String id) { 
+//        bankAccounts = accDao.getAll();
         for (int i = 0; i < bankAccounts.size(); i++) {
             if (bankAccounts.get(i).getAccountId().equals(id)) {
                 return i;
@@ -98,6 +105,7 @@ public class MainBank {
     }
 
     public int searchEmployeeById(String id) { 
+//        employees = empDao.getAll();
         for (int i = 0; i < employees.size(); i++) {
             if (employees.get(i).getEmployeeId().equals(id)) {
                 return i;
@@ -107,6 +115,7 @@ public class MainBank {
     }
     
     public int searchCustomerById(String id){
+//        customers = cusDao.getAll();
         for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getCustomerId().equals(id)) {
                 return i;
@@ -236,6 +245,8 @@ public class MainBank {
         subBanks.remove(sub);
         main.update(this);
         subDao.delete(sub);
+        File file = new File("src//menu//sub//" + sub.getId() + "Menu.java");
+        file.delete();
     }
 
     public void newEmployee(Employee emp) {
@@ -266,7 +277,6 @@ public class MainBank {
         int index = searchCustomerById(cus.getCustomerId());
         if (index >= 0) {
             System.out.println("Customer is already exist");
-            return;
         }
         customers.add(cus);
     }
@@ -332,12 +342,357 @@ public class MainBank {
     }
     
     public void createMenuFile(SubBank sub){
-        
+        try {
+            FileWriter wtr = new FileWriter("src//menu//sub//" + sub.getId() + "Menu.java");
+            wtr.write(getString1(sub));
+            wtr.write(getString2());
+            wtr.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MainBank.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public String toString() {
         return "MainBank{" + "vault=" + vault + ", totalMoney=" + totalMoney + ", subBanksCount=" + subBanks.size() + '}';
     }
+    
+    private String getString1(SubBank sub){
+        return "/*\n" +
+" * To change this license header, choose License Headers in Project Properties.\n" +
+" * To change this template file, choose Tools | Templates\n" +
+" * and open the template in the editor.\n" +
+" */\n" +
+"package menu.sub;\n" +
+"\n" +
+"import bank.CounterService;\n" +
+"import bank.BankAccount;\n" +
+"import bank.MainBank;\n" +
+"import base.Customer;\n" +
+"import base.Person;\n" +
+"import dataaccess.CustomerDaoImp;\n" +
+"import dataaccess.model.DBDao;\n" +
+"import java.util.Scanner;\n" +
+"import menu.Menu;\n" +
+"\n" +
+"/**\n" +
+" *\n" +
+" * @author karn\n" +
+" */\n" +
+"public class "+ sub.getId() +"Menu extends Menu {\n" +
+"\n" +
+"    private static MainBank main = loadData();\n" +
+"    private static CounterService cs;\n" +
+"    \n" +
+"    public static void main(String[] args) {\n" +
+"        String menu = \"============Menu============\\n\"\n" +
+"                + \"1. Deposit\\n\"\n" +
+"                + \"2. Withdraw\\n\"\n" +
+"                + \"3. Transfer\\n\"\n" +
+"                + \"4. Create Account\\n\"\n" +
+"                + \"5. Delete Account\\n\"\n" +
+"                + \"6. Register Member\\n\"\n" +
+"                + \"7. Check Account\\n\"\n" +
+"                + \"0. Exit\\n\"\n" +
+"                + \"----Select: \";\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        cs = main.getSubBanks().get(main.searchSubBankById(\""+sub.getId()+"\")).getCounterService();\n" +
+"        cs.getSubBank().setMainBank(main);" +
+"        \n" +
+"        int input;\n" +
+"        do {\n" +
+"            System.out.print(menu);\n" +
+"            input = sc.nextInt();\n" +
+"            switch (input) {\n" +
+"                case 1:\n" +
+"                    deposit();\n" +
+"                    break;\n" +
+"                case 2: \n" +
+"                    withdraw();\n" +
+"                    break;\n" +
+"                case 3:\n" +
+"                    transfer();\n" +
+"                    break;\n" +
+"                case 4:\n" +
+"                    createAccount();\n" +
+"                    break;\n" +
+"                case 5:\n" +
+"                    deleteAccount();\n" +
+"                    break;\n" +
+"                case 6:\n" +
+"                    register();\n" +
+"                    break;\n" +
+"                case 7:\n" +
+"                    check();\n" +
+"                    break;\n" +
+"                case 0:\n" +
+"                    System.out.println(\"finished\");\n" +
+"                    break;\n" +
+"                default:\n" +
+"                    System.out.println(input + \" is not menu\");\n" +
+"                    pressEnter();\n" +
+"                    break;\n" +
+"            }\n" +
+"        } while (input != 0);\n" +
+"\n" +
+"    }\n" +
+"    \n" +
+"    public static void deposit(){\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        String id;\n" +
+"        int check;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            id = sc.next();\n" +
+"            check = main.searchAccountById(\"acc\" + id);\n" +
+"            if (id.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(check == -1 || id.length() != 3){\n" +
+"                System.out.println(\"Account Not Found\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (check == -1 || id.length() != 3);\n" +
+"        int money;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert amount of MONEY : \");\n" +
+"            money = sc.nextInt();\n" +
+"            if (money < 0) {\n" +
+"                System.out.println(\"please insert unsigned value\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (money < 0);\n" +
+"        \n" +
+"        cs.deposit(money, \"acc\" + id);\n" +
+"    }\n" +
+"    \n" +
+"    public static void withdraw(){\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        String id;\n" +
+"        int check;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            id = sc.next();\n" +
+"            check = main.searchAccountById(\"acc\" + id);\n" +
+"            if (id.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(check == -1 || id.length() != 3){\n" +
+"                System.out.println(\"Account Not Found\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (check == -1 || id.length() != 3);\n" +
+"        int money;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert amount of MONEY : \");\n" +
+"            money = sc.nextInt();\n" +
+"            if (money < 0) {\n" +
+"                System.out.println(\"please insert unsigned value\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (money < 0);\n" +
+"        \n" +
+"        cs.withdraw(money, \"acc\" + id);\n" +
+"    }\n" +
+"    \n" +
+"    public static void transfer(){\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        String id1;\n" +
+"        int checkId1;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            id1 = sc.next();\n" +
+"            checkId1 = main.searchAccountById(\"acc\" + id1);\n" +
+"            if (id1.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(checkId1 == -1 || id1.length() != 3){\n" +
+"                System.out.println(\"Account Not Found\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (checkId1 == -1 || id1.length() != 3);\n" +
+"        \n" +
+"        String id2;\n" +
+"        int check;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            id2 = sc.next();\n" +
+"            check = main.searchAccountById(\"acc\" + id2);\n" +
+"            if (id2.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(check == -1 || id2.length() != 3){\n" +
+"                System.out.println(\"Account Not Found\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (check == -1 || id2.length() != 3);\n" +
+"        \n" +
+"        int money;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert amount of MONEY : \");\n" +
+"            money = sc.nextInt();\n" +
+"            if (money < 0) {\n" +
+"                System.out.println(\"please insert unsigned value\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (money < 0);\n" +
+"        \n" +
+"        if (cs.transfer(money, \"acc\" + id1, \"acc\" + id2)) {\n" +
+"            System.out.println(\"transfer complete\");\n" +
+"        } else{\n" +
+"            System.out.println(\"not enough money\");\n" +
+"        }\n" +
+"        pressEnter();\n" +
+"    }\n" +
+"\n" +
+"    public static void createAccount(){\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        String cusId;\n" +
+"        int cusCheck;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Customer ID (insert \\\"0\\\" to cancel): \");\n" +
+"            cusId = sc.next();\n" +
+"            cusCheck = main.searchCustomerById(\"cus\" + cusId);\n" +
+"            if (cusId.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(cusCheck == -1){\n" +
+"                System.out.println(\"ID Not Found\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (cusId.length() != 3 || cusCheck == -1);\n" +
+"        \n" +
+"        System.out.println(main.getCustomers().get(cusCheck));\n" +
+"        \n" +
+"        String accId;\n" +
+"        int check = 0;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            accId = sc.next();\n" +
+"            check = main.searchAccountById(\"acc\" + accId);\n" +
+"            if (accId.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(check >= 0){\n" +
+"                System.out.println(\"ID is already exist\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (accId.length() != 3 || check >= 0);\n" +
+"        cs.newAccount(\"acc\" + accId, main.getCustomers().get(cusCheck));\n" +
+"    }\n" +
+"    \n";
+    }
+    
+    private String getString2(){
+        return "    public static void deleteAccount(){\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        int cusCheck;\n" +
+"        String cusId;\n" +
+"        \n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Customer ID (insert \\\"0\\\" to cancel): \");\n" +
+"            cusId = sc.next();\n" +
+"            cusCheck = main.searchCustomerById(\"cus\" + cusId);\n" +
+"            if (cusId.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(cusCheck == -1){\n" +
+"                System.out.println(\"ID Not Found\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (cusId.length() != 3 || cusCheck == -1);\n" +
+"        \n" +
+"        String accId;\n" +
+"        int check = 0;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            accId = sc.next();\n" +
+"            check = main.searchAccountById(\"acc\" + accId);\n" +
+"            if (accId.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(check == -1){\n" +
+"                System.out.println(\"Account is not exist\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (accId.length() != 3 || check == -1);\n" +
+"        \n" +
+"        cs.deleteAccount(main.getBankAccounts().get(check));\n" +
+"    }\n" +
+"    \n" +
+"    public static void register() {\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"\n" +
+"        String id;\n" +
+"        int check;\n" +
+"        do {\n" +
+"            System.out.print(\"insert 3 digit number for id (insert \\\"0\\\" to cancel): \");\n" +
+"            id = sc.next();\n" +
+"            check = main.searchCustomerById(\"cus\" + id);\n" +
+"            if (id.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if (check >= 0) {\n" +
+"                System.out.println(\"id is already exist\");\n" +
+"                pressEnter();\n" +
+"            } else if (id.length() != 3) {\n" +
+"                System.out.println(\"id was \" + id.length() + \" number\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (id.length() != 3 || check >= 0);\n" +
+"\n" +
+"        System.out.print(\"insert name (insert \\\"0\\\" to cancel):\");\n" +
+"        String name = sc.next();\n" +
+"        if (name.equals(\"0\")) {\n" +
+"            return;\n" +
+"        }\n" +
+"\n" +
+"        System.out.print(\"insert surname (insert \\\"0\\\" to cancel):\");\n" +
+"        String surname = sc.next();\n" +
+"        if (surname.equals(\"0\")) {\n" +
+"            return;\n" +
+"        }\n" +
+"\n" +
+"        String tele;\n" +
+"        do {\n" +
+"            System.out.print(\"insert telephone number (insert \\\"0\\\" to cancel):\");\n" +
+"            tele = sc.next();\n" +
+"            if (tele.equals(\"0\")) {\n" +
+"                pressEnter();\n" +
+"            } else if (tele.length() != 10) {\n" +
+"                System.out.println(\"telephone number must be 10 digits number:\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (tele.length() != 10);\n" +
+"\n" +
+"        System.out.print(\"insert email (insert \\\"0\\\" to cancel):\");\n" +
+"        String email = sc.next();\n" +
+"        if (surname.equals(\"0\")) {\n" +
+"            return;\n" +
+"        }\n" +
+"\n" +
+"        System.out.print(\"insert address (insert \\\"0\\\" to cancel):\");\n" +
+"        String address = sc.next();\n" +
+"        if (surname.equals(\"0\")) {\n" +
+"            return;\n" +
+"        }\n" +
+"        cs.newCustomer(\"cus\" + id , new Person(name, surname, tele, email, address));\n" +
+"    }\n" +
+"    \n" +
+"    public static void check(){\n" +
+"        Scanner sc = new Scanner(System.in);\n" +
+"        String accId;\n" +
+"        int check = 0;\n" +
+"        do {            \n" +
+"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            accId = sc.next();\n" +
+"            check = main.searchAccountById(\"acc\" + accId);\n" +
+"            if (accId.equals(\"0\")) {\n" +
+"                return;\n" +
+"            } else if(check == -1){\n" +
+"                System.out.println(\"Account is not exist\");\n" +
+"                pressEnter();\n" +
+"            }\n" +
+"        } while (accId.length() != 3 || check == -1);\n" +
+"        \n" +
+"        System.out.println(main.getBankAccounts().get(check));\n" +
+"        pressEnter();\n" +
+"    }\n" +
+"}\n" +
+"\n";
+    }
+    
+    
 
 }

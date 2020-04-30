@@ -57,7 +57,7 @@ public class SubBank {
 
     public boolean createCustomer(Customer cus) {
         int index = mainBank.searchCustomerById(cus.getCustomerId());
-        if (index >= 0) {
+        if (index == -1) {
             mainBank.newCustomer(cus);
             return true;
         }
@@ -72,6 +72,7 @@ public class SubBank {
         if (mainBank.deposit(money, id, this)) {
             vault += money;
             subDao.update(this);
+            System.out.println("kkk");
         }
     }
 
@@ -107,6 +108,10 @@ public class SubBank {
 
     public CounterService getCounterService() {
         return counterService;
+    }
+
+    public void setMainBank(MainBank mainBank) {
+        this.mainBank = mainBank;
     }
 
     @Override
