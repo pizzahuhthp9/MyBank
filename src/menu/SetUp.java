@@ -12,6 +12,7 @@ import dataaccess.model.MainBankDBDao;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 import java.util.Scanner;
 
@@ -69,11 +70,13 @@ public class SetUp {
                 MainBank m = new MainBank(money, money);
                 MainBankDBDao mainDao = new MainBankDaoImp();
                 try (Connection conn = DBConnection.getConnection(); Statement stm = conn.createStatement()) {
-                    stm.execute(drop1);
-                    stm.execute(drop2);
-                    stm.execute(drop3);
-                    stm.execute(drop4);
-                    stm.execute(drop5);
+                    try{
+                        stm.execute(drop1);
+                        stm.execute(drop2);
+                        stm.execute(drop3);
+                        stm.execute(drop4);
+                        stm.execute(drop5);
+                    } catch(SQLSyntaxErrorException ex){}
                     stm.execute(create1);
                     stm.execute(create2);
                     stm.execute(create3);
@@ -84,7 +87,6 @@ public class SetUp {
 
                     File dir = new File("src//menu//sub");
                     File[] files = dir.listFiles();
-                    System.out.println(files[0]);
                     for (File file : files) {
                         file.delete();
                     }

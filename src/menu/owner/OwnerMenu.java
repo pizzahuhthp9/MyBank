@@ -6,23 +6,12 @@
 package menu.owner;
 
 import bank.CounterService;
-import bank.BankAccount;
 import bank.MainBank;
 import bank.SubBank;
 import base.Employee;
 import base.Person;
-import dataaccess.BankAccountDaoImp;
-import dataaccess.EmployeeDaoImp;
-import dataaccess.MainBankDaoImp;
-import dataaccess.SubBankDaoImp;
-import dataaccess.model.DBDao;
-import dataaccess.model.MainBankDBDao;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import menu.Menu;
 import menu.Menu;
 
 /**
