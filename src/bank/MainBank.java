@@ -341,7 +341,7 @@ public class MainBank {
         }
     }
     
-    public void createMenuFile(SubBank sub){
+    private void createMenuFile(SubBank sub){
         try {
             FileWriter wtr = new FileWriter("src//menu//sub//" + sub.getId() + "Menu.java");
             wtr.write(getString1(sub));
