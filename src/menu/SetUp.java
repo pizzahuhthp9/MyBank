@@ -70,13 +70,14 @@ public class SetUp {
                 MainBank m = new MainBank(money, money);
                 MainBankDBDao mainDao = new MainBankDaoImp();
                 try (Connection conn = DBConnection.getConnection(); Statement stm = conn.createStatement()) {
-                    try{
+                    try {
                         stm.execute(drop1);
                         stm.execute(drop2);
                         stm.execute(drop3);
                         stm.execute(drop4);
                         stm.execute(drop5);
-                    } catch(SQLSyntaxErrorException ex){}
+                    } catch (SQLSyntaxErrorException ex) {
+                    }
                     stm.execute(create1);
                     stm.execute(create2);
                     stm.execute(create3);

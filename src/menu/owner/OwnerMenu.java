@@ -18,23 +18,23 @@ import menu.Menu;
  *
  * @author karn
  */
-public class OwnerMenu extends Menu{
-    
+public class OwnerMenu extends Menu {
+
     static MainBank main;
     static String menu = "============Menu============\n"
-                + "1.  Create SubBank\n"
-                + "2.  Delete SubBank\n"
-                + "3.  Add Employee\n"
-                + "4.  Remove Employee\n"
-                + "5.  transfer money\n"
-                + "6.  List Employee\n"
-                + "7.  List Sub Bank\n"
-                + "8.  List Customer\n"
-                + "9.  List Account\n"
-                + "10. Check Money\n"
-                + "0. Exit\n"
-                + "----Select: ";
-    
+            + "1.  Create SubBank\n"
+            + "2.  Delete SubBank\n"
+            + "3.  Add Employee\n"
+            + "4.  Remove Employee\n"
+            + "5.  transfer money\n"
+            + "6.  List Employee\n"
+            + "7.  List Sub Bank\n"
+            + "8.  List Customer\n"
+            + "9.  List Account\n"
+            + "10. Check Money\n"
+            + "0. Exit\n"
+            + "----Select: ";
+
     public static void main(String[] args) {
         main = loadData();
         Scanner sc = new Scanner(System.in);
@@ -67,7 +67,7 @@ public class OwnerMenu extends Menu{
                 case 8:
                     listCus();
                     break;
-                case 9 :
+                case 9:
                     listAccount();
                     break;
                 case 10:
@@ -94,7 +94,9 @@ public class OwnerMenu extends Menu{
                 main.listFreeEmployee();
                 System.out.print("Select Employee (insert \"0\" to cancel): ");
                 empIndex = sc.nextInt();
-                if (empIndex > empList.size()) {
+                if (empIndex == 0) {
+                    return;
+                } else if (empIndex > empList.size()) {
                     System.out.println(empIndex + " is not in a list");
                     pressEnter();
                 } else if (empIndex < 0) {
@@ -103,9 +105,6 @@ public class OwnerMenu extends Menu{
                 }
             } while (empIndex > empList.size() || empIndex < 0);
 
-            if (empIndex == 0) {
-                return;
-            }
             String id;
             int check;
             do {
@@ -177,6 +176,7 @@ public class OwnerMenu extends Menu{
                 pressEnter();
             }
         } while (id.length() != 3 || check >= 0 || id.equals("0"));
+
         System.out.print("insert name (insert \"0\" to cancel):");
         String name = sc.next();
         if (name.equals("0")) {
@@ -194,7 +194,7 @@ public class OwnerMenu extends Menu{
             System.out.print("insert telephone number (insert \"0\" to cancel):");
             tele = sc.next();
             if (tele.equals("0")) {
-                pressEnter();
+                return;
             } else if (tele.length() != 10) {
                 System.out.println("telephone number must be 10 digits number:");
                 pressEnter();
@@ -222,6 +222,7 @@ public class OwnerMenu extends Menu{
         if (list.size() > 0) {
             System.out.println("============Employee(s) List============");
             main.listFreeEmployee();
+
             int index;
             do {
                 System.out.print("select Employee to delete (insert \"0\" to cancel): ");
@@ -304,7 +305,7 @@ public class OwnerMenu extends Menu{
             }
             System.out.println("transfer finished");
             pressEnter();
-        } else{
+        } else {
             System.out.println("no Sub Bank");
             pressEnter();
         }
@@ -319,13 +320,13 @@ public class OwnerMenu extends Menu{
         main.listEmployee();
         pressEnter();
     }
-    
-    public static void listCus(){
+
+    public static void listCus() {
         main.listCustomer();
         pressEnter();
     }
-    
-    public static void listAccount(){
+
+    public static void listAccount() {
         main.listAccount();
         pressEnter();
     }
