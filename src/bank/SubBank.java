@@ -72,7 +72,6 @@ public class SubBank {
         if (mainBank.deposit(money, id, this)) {
             vault += money;
             subDao.update(this);
-            System.out.println("kkk");
         }
     }
 

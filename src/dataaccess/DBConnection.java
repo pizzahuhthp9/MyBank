@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class DBConnection {
     
     private static final String DRIVER="org.apache.derby.jdbc.ClientDriver";
-    private static final String URI="jdbc:derby://localhost:1527/bankProject";
+    private static final String URL="jdbc:derby://localhost:1527/bankProject";
     private static final String USERNAME="bank";
     private static final String PASSWORD="832";
     
@@ -24,7 +24,7 @@ public class DBConnection {
         Connection conn = null;
         try {
             Class.forName(DRIVER);
-            conn=DriverManager.getConnection(URI, USERNAME, PASSWORD);
+            conn=DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (ClassNotFoundException ex) {
             System.out.println("ไม่พบ Database driver! ให้ทำอย่างใดอย่างหนึ่งต่อไปนี้");
             System.out.println("-คลิกขวาที่ Libraries แล้วเลือก Add Library.. แล้วเลือก Java DB Driver");

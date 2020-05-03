@@ -341,7 +341,7 @@ public class MainBank {
         }
     }
     
-    public void createMenuFile(SubBank sub){
+    private void createMenuFile(SubBank sub){
         try {
             FileWriter wtr = new FileWriter("src//menu//sub//" + sub.getId() + "Menu.java");
             wtr.write(getString1(sub));
@@ -391,7 +391,7 @@ public class MainBank {
 "                + \"3. Transfer\\n\"\n" +
 "                + \"4. Create Account\\n\"\n" +
 "                + \"5. Delete Account\\n\"\n" +
-"                + \"6. Register Member\\n\"\n" +
+"                + \"6. Register\\n\"\n" +
 "                + \"7. Check Account\\n\"\n" +
 "                + \"0. Exit\\n\"\n" +
 "                + \"----Select: \";\n" +
@@ -512,7 +512,7 @@ public class MainBank {
 "        String id2;\n" +
 "        int check;\n" +
 "        do {            \n" +
-"            System.out.print(\"insert your Account ID (insert \\\"0\\\" to cancel): \");\n" +
+"            System.out.print(\"insert destination Account ID (insert \\\"0\\\" to cancel): \");\n" +
 "            id2 = sc.next();\n" +
 "            check = main.searchAccountById(\"acc\" + id2);\n" +
 "            if (id2.equals(\"0\")) {\n" +
