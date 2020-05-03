@@ -63,7 +63,7 @@ public class SetUp {
                 + ")";
         String insert = "INSERT INTO main_bank VALUES(0,0)";
         String input = sc.next();
-        if (input.equals("y") || input.equals("Y")) {
+        if (input.equalsIgnoreCase("y")) {
             System.out.print("insert a amount of bank money : ");
             int money = sc.nextInt();
             if (money >= 10000) {
@@ -89,6 +89,9 @@ public class SetUp {
                     File dir = new File("src//menu//sub");
                     File[] files = dir.listFiles();
                     for (File file : files) {
+                        if (file.getName().equals("BankMenuTemplate.java")) {
+                            continue;
+                        }
                         file.delete();
                     }
 
