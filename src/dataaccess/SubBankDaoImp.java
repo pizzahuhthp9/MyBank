@@ -54,7 +54,7 @@ public class SubBankDaoImp implements DBDao<SubBank> {
 
     @Override
     public void update(SubBank obj) {
-        String sql = "UPDATE sub_bank SET vault = ?, emp_id = ? WHERE id = ?";
+        String sql = "UPDATE sub_bank SET vault = ?, emp_id = ?, WHERE id = ?";
         try (Connection conn = DBConnection.getConnection()) {
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setInt(1, obj.getVault());
@@ -70,7 +70,7 @@ public class SubBankDaoImp implements DBDao<SubBank> {
     public SubBank findById(String id) {
         SubBank sb = null;
         try (Connection conn = DBConnection.getConnection(); Statement stm = conn.createStatement()) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM main_bank, sub_bank LEFT JOIN employees ON emp_id = employees.id WHERE sub_bank.id = '" + id + "'");
+            ResultSet rs = stm.executeQuery("SELECT * FROM main_bank, sub_bank LEFT JOIN employees ON emp_id = employees.id WHERE sub_bank.id = " + id);
             if (rs.next()) {
                 sb = new SubBank(id,
                         new CounterService(
