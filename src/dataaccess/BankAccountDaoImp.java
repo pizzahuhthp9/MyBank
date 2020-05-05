@@ -69,7 +69,7 @@ public class BankAccountDaoImp implements DBDao<BankAccount> {
     public BankAccount findById(String id) {
         BankAccount acc = null;
         try (Connection conn = DBConnection.getConnection(); Statement stm = conn.createStatement();) {
-            ResultSet rs = stm.executeQuery("SELECT * FROM accounts JOIN customers ON cus_id = customers.id WHERE accounts.id = '" + id + "'");
+            ResultSet rs = stm.executeQuery("SELECT * FROM accounts JOIN customers ON cus_id = customers.id WHERE accounts.id = " + id);
             if (rs.next()) {
                 acc = new BankAccount(id, new Customer(rs.getString(4), new Person(rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getString(9))), rs.getInt(3));
             }

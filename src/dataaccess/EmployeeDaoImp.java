@@ -77,7 +77,7 @@ public class EmployeeDaoImp implements DBDao<Employee>{
     public Employee findById(String id) {
         Employee emp = null;
         try(Connection conn = DBConnection.getConnection(); Statement stm = conn.createStatement()){
-            ResultSet rs = stm.executeQuery("SELECT * FROM employees WHERE id = '" + id + "'");
+            ResultSet rs = stm.executeQuery("SELECT * FROM employees WHERE id = " + id);
             if (rs.next()) {
                 emp = new Employee(rs.getString(1), new Person(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)), rs.getBoolean(7));
             }

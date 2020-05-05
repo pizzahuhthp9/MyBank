@@ -158,6 +158,7 @@ public class MainBank {
                 bankAccounts.get(index).decreaseMoney(money);
                 sub.decreaseVault(money);
 //                accDao.update(bankAccounts.get(index));
+                totalMoney -= money;
                 main.update(this);
                 return true;
             } else {
@@ -393,6 +394,7 @@ public class MainBank {
 "                + \"6. Register\\n\"\n" +
 "                + \"7. Check Account\\n\"\n" +
 "                + \"0. Exit\\n\"\n" +
+"                + \"============================\\n\"\n" +
 "                + \"----Select: \";\n" +
 "        Scanner sc = new Scanner(System.in);\n" +
 "        cs = main.getSubBanks().get(main.searchSubBankById(\""+sub.getId()+"\")).getCounterService();\n" +

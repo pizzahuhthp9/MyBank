@@ -20,9 +20,6 @@ import menu.Menu;
  */
 public class OwnerMenu extends Menu {
     
-    static final String ANSI_RESET = "\u001B[0m";
-    static final String ANSI_FADE = "\u001B[2m";
-
     static MainBank main;
     static String menu = "============Menu============\n"
             + "1.  Create SubBank\n"
@@ -36,6 +33,7 @@ public class OwnerMenu extends Menu {
             + "9.  List Account\n"
             + "10. Check Money\n"
             + "0. Exit\n"
+            + "============================\n"
             + "----Select: ";
 
     public static void main(String[] args) {
@@ -95,6 +93,7 @@ public class OwnerMenu extends Menu {
             do {
                 System.out.println("============Employee(s) List============");
                 main.listFreeEmployee();
+                System.out.println("========================================");
                 System.out.print("Select Employee (insert \"0\" to cancel): ");
                 empIndex = sc.nextInt();
                 if (empIndex == 0) {
@@ -139,6 +138,7 @@ public class OwnerMenu extends Menu {
         if (main.getSubBanks().size() > 0) {
             System.out.println("============Sub Bank(s) List============");
             main.listSubBank(1);
+            System.out.println("========================================");
             int index;
             do {
                 System.out.print("select Sub Bank to delete (insert \"0\" to cancel): ");
@@ -225,6 +225,7 @@ public class OwnerMenu extends Menu {
         if (list.size() > 0) {
             System.out.println("============Employee(s) List============");
             main.listFreeEmployee();
+            System.out.println("========================================");
 
             int index;
             do {
@@ -255,6 +256,7 @@ public class OwnerMenu extends Menu {
             System.out.println("============bank list============");
             System.out.println("1.)main Bank vault = " + main.getVault());
             main.listSubBank(2);
+            System.out.println("=================================");
             int from;
             do {
                 System.out.print("transfer from (insert \"0\" to cancel):");

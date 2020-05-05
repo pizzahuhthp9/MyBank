@@ -73,7 +73,7 @@ public class CustomerDaoImp implements DBDao<Customer>{
     public Customer findById(String id) {
         Customer cus = null;
         try(Connection conn = DBConnection.getConnection(); Statement stm = conn.createStatement()){
-            ResultSet rs = stm.executeQuery("SELECT * FROM customers WHERE id = '" + id + "'");
+            ResultSet rs = stm.executeQuery("SELECT * FROM customers WHERE id = "+ id);
             if (rs.next()) {
                 cus = new Customer(rs.getString(1), new Person(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6)));
             }

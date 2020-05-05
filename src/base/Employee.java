@@ -39,7 +39,14 @@ public class Employee extends Person{
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", free=" + free + '}';
+        StringBuilder s = new StringBuilder();
+        s.append("ID : " + employeeId + ", Name :" + super.getFirstName() + "\tStatus : ");
+        if (free) {
+            s.append("free");
+        } else{
+            s.append("working");
+        }
+        return s.toString();
     }
 
     
