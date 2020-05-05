@@ -668,7 +668,7 @@ public class MainBank {
 "        if (surname.equals(\"0\")) {\n" +
 "            return;\n" +
 "        }\n" +
-"        cs.newCustomer(\"cus\" + id , new Person(name, surname, tele, email, address));\n" +
+"        cs.newCustomer(\"cus\" + id , name, surname, tele, email, address);\n" +
 "    }\n" +
 "    \n" +
 "    public static void check(){\n" +

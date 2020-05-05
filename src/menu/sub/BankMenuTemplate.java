@@ -323,7 +323,7 @@ public class BankMenuTemplate extends Menu {
         if (surname.equals("0")) {
             return;
         }
-        cs.newCustomer("cus" + id , new Person(name, surname, tele, email, address));
+        cs.newCustomer("cus" + id , name, surname, tele, email, address);
     }
     
     public static void check(){

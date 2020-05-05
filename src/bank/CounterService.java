@@ -56,8 +56,9 @@ public class CounterService{
         return subBank.createBankAccount(id, 0, customer);
     }
     
-    public boolean newCustomer(String id, Person person){
-        return subBank.createCustomer(new Customer(id, person));
+    public boolean newCustomer(String id, String name, String lname, String tele, String mail, String adds){
+//        return subBank.createCustomer(new Customer(id, person));
+        return subBank.createCustomer(new Customer(id, new Person(name, lname, tele, mail, adds)));
     }
     
     
