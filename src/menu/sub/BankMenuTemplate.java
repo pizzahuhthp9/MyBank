@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package menu;
+package menu.sub;
 
 import bank.CounterService;
 import bank.BankAccount;
@@ -13,6 +13,7 @@ import base.Person;
 import dataaccess.CustomerDaoImp;
 import dataaccess.model.DBDao;
 import java.util.Scanner;
+import menu.Menu;
 import menu.Menu;
 
 /**
