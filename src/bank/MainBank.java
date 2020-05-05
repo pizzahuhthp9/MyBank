@@ -6,7 +6,6 @@
 package bank;
 
 import base.Customer;
-import bank.SubBank;
 import base.Employee;
 import dataaccess.BankAccountDaoImp;
 import dataaccess.CustomerDaoImp;
@@ -131,8 +130,8 @@ public class MainBank {
             if (index2 >= 0 && bankAccounts.get(index1).getMoney() >= money) {
                 bankAccounts.get(index1).decreaseMoney(money);
                 bankAccounts.get(index2).receiveMoney(money);
-                accDao.update(bankAccounts.get(index1));
-                accDao.update(bankAccounts.get(index2));
+//                accDao.update(bankAccounts.get(index1));
+//                accDao.update(bankAccounts.get(index2));
                 return true;
             }
         }
@@ -145,7 +144,7 @@ public class MainBank {
             bankAccounts.get(index).receiveMoney(money);
             sub.increaseVault(money);
             totalMoney += money;
-            accDao.update(bankAccounts.get(index));
+//            accDao.update(bankAccounts.get(index));
             main.update(this);
             return true;
         }
@@ -158,7 +157,7 @@ public class MainBank {
             if (bankAccounts.get(index).getMoney() >= money) {
                 bankAccounts.get(index).decreaseMoney(money);
                 sub.decreaseVault(money);
-                accDao.update(bankAccounts.get(index));
+//                accDao.update(bankAccounts.get(index));
                 main.update(this);
                 return true;
             } else {
@@ -172,8 +171,8 @@ public class MainBank {
         if (sub1.getVault() > money) {
             sub1.decreaseVault(money);
             sub2.increaseVault(money);
-            subDao.update(sub1);
-            subDao.update(sub2);
+//            subDao.update(sub1);
+//            subDao.update(sub2);
         } else {
             System.out.println("not enough money");
             System.out.println(sub1);
@@ -190,7 +189,7 @@ public class MainBank {
         sub.increaseVault(money);
         vault -= money;
         main.update(this);
-        subDao.update(sub);
+//        subDao.update(sub);
     }
 
     public void receiveMoneyFromSubBank(int money, SubBank sub) {
@@ -202,7 +201,7 @@ public class MainBank {
         sub.decreaseVault(money);
         vault += money;
         main.update(this);
-        subDao.update(sub);
+//        subDao.update(sub);
     }
 
     public void newAccount(BankAccount account) {
@@ -693,6 +692,4 @@ public class MainBank {
 "\n";
     }
     
-    
-
 }

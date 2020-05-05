@@ -19,6 +19,9 @@ import menu.Menu;
  * @author karn
  */
 public class OwnerMenu extends Menu {
+    
+    static final String ANSI_RESET = "\u001B[0m";
+    static final String ANSI_FADE = "\u001B[2m";
 
     static MainBank main;
     static String menu = "============Menu============\n"

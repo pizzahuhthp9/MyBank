@@ -17,6 +17,8 @@ package bank;
 
 import base.Customer;
 import base.Customer;
+import dataaccess.BankAccountDaoImp;
+import dataaccess.model.DBDao;
 import java.util.Objects;
 
 /**
@@ -27,6 +29,7 @@ public class BankAccount {
     private Customer owner;
     private int money;
     private String accountId;
+    private DBDao accDao = new BankAccountDaoImp();
 
     public BankAccount(String id,Customer owner, int money) {
         this.accountId = id;
@@ -48,11 +51,13 @@ public class BankAccount {
     
     public void receiveMoney(int money){
         this.money += money;
+        accDao.update(this);
     }
     
     public void decreaseMoney(int money){
         if (this.money >= money) {
             this.money -= money;
+            accDao.update(this);
         }
     }
     

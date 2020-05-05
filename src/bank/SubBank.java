@@ -82,6 +82,7 @@ public class SubBank {
         }
         if (mainBank.withdraw(money, id, this)) {
             vault -= money;
+            subDao.update(this);
         }
     }
 
